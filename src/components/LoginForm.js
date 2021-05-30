@@ -9,6 +9,10 @@ const LoginForm = (props) => {
     password: "",
     address: "",
     country: "",
+    city: {
+      pincode: "",
+      state: "",
+    },
   };
   // const validate = (values) => {
   //   let errors = {};
@@ -30,6 +34,8 @@ const LoginForm = (props) => {
     email: Yup.string().email("Invalid format").required("Required!!!"),
     address: Yup.string().required("Req!!!"),
     country: Yup.string().required("Req!!!!"),
+    pincode: Yup.string().required("Pin req!!1"),
+    state: Yup.string().required("State required!!!!!"),
   });
 
   // const formik = useFormik({
@@ -80,6 +86,26 @@ const LoginForm = (props) => {
               placeholder="Enter address"
             />
             <ErrorMessage name="address" />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="pincode"></label>
+            <Field
+              id="pincode"
+              name="city.pincode"
+              id="pincode"
+              placeholder="Enter Pincode"
+            ></Field>
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="state"></label>
+            <Field
+              id="state"
+              name="city.state"
+              id="state"
+              placeholder="Enter state"
+            ></Field>
           </div>
 
           <div className="form-control">
