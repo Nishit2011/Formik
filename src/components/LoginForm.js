@@ -31,7 +31,7 @@ const LoginForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate,
+    validationSchema,
   });
 
   console.log("Visited fieldds", formik.touched);
