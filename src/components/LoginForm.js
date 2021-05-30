@@ -3,10 +3,12 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const initialValues = {
     email: "",
     password: "",
+    address: "",
+    country: "",
   };
   // const validate = (values) => {
   //   let errors = {};
@@ -26,6 +28,8 @@ const LoginForm = () => {
   const validationSchema = Yup.object({
     password: Yup.string().required("Required!!!"),
     email: Yup.string().email("Invalid format").required("Required!!!"),
+    address: Yup.string().required("Req!!!"),
+    country: Yup.string().required("Req!!!!"),
   });
 
   // const formik = useFormik({
@@ -66,7 +70,34 @@ const LoginForm = () => {
             />
             <ErrorMessage name="password" />
           </div>
-          <button type="submit">Submit</button>
+
+          <div className="form-control">
+            <label htmlFor="address">Address</label>
+            <Field
+              as="textarea"
+              id="address"
+              name="address"
+              placeholder="Enter address"
+            />
+            <ErrorMessage name="address" />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="country">Country</label>
+            <Field name="country">
+              {(props) => {
+                console.log(props);
+                const { field, form, meta } = props;
+                return <input id="country" {...field} />;
+              }}
+            </Field>
+
+            <ErrorMessage name="country" />
+          </div>
+
+          <div className="form-control">
+            <button type="submit">Submit</button>
+          </div>
         </Form>
       </Formik>
     </div>
