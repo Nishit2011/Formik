@@ -28,13 +28,21 @@ const LoginForm = (props) => {
   //   return errors;
   // };
 
+  const validateAddress = (value) => {
+    let err;
+    if (!value) {
+      err = "Address Required!!!";
+    }
+    return err;
+  };
+
   const onSubmit = (values) => {
     console.log("--", values);
   };
   const validationSchema = Yup.object({
     password: Yup.string().required("Required!!!"),
     email: Yup.string().email("Invalid format").required("Required!!!"),
-    address: Yup.string().required("Req!!!"),
+    // address: Yup.string().required("Req!!!"),
     country: Yup.string().required("Req!!!!"),
     pincode: Yup.string().required("Pin req!!"),
     state: Yup.string().required("State required!!!!!"),
@@ -86,6 +94,7 @@ const LoginForm = (props) => {
               id="address"
               name="address"
               placeholder="Enter address"
+              validate={validateAddress}
             />
             <ErrorMessage name="address" />
           </div>
@@ -154,7 +163,7 @@ const LoginForm = (props) => {
                   <div>
                     {phoneNumbers.map((phoneNumber, index) => (
                       <div key={index}>
-                        <Field name={`phoneNumber[${index}]`} />
+                        <Field name={`phoneNumbers[${index}]`} />
                         <button type="button" onClick={() => remove(index)}>
                           -
                         </button>
