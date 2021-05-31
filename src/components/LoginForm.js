@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 
 const LoginForm = (props) => {
@@ -13,6 +13,8 @@ const LoginForm = (props) => {
       pincode: "",
       state: "",
     },
+    phNum: ["", ""],
+    phoneNumbers: [""],
   };
   // const validate = (values) => {
   //   let errors = {};
@@ -34,7 +36,7 @@ const LoginForm = (props) => {
     email: Yup.string().email("Invalid format").required("Required!!!"),
     address: Yup.string().required("Req!!!"),
     country: Yup.string().required("Req!!!!"),
-    pincode: Yup.string().required("Pin req!!1"),
+    pincode: Yup.string().required("Pin req!!"),
     state: Yup.string().required("State required!!!!!"),
   });
 
@@ -93,19 +95,18 @@ const LoginForm = (props) => {
             <Field
               id="pincode"
               name="city.pincode"
-              id="pincode"
               placeholder="Enter Pincode"
             ></Field>
           </div>
-
+          <ErrorMessage name="city.pincode" />
           <div className="form-control">
             <label htmlFor="state"></label>
             <Field
               id="state"
               name="city.state"
-              id="state"
               placeholder="Enter state"
             ></Field>
+            <ErrorMessage name="city.state" />
           </div>
 
           <div className="form-control">
@@ -119,6 +120,53 @@ const LoginForm = (props) => {
             </Field>
 
             <ErrorMessage name="country" />
+          </div>
+          <div className="form-control">
+            <label htmlFor="primary-phn"></label>
+            <Field
+              name="phNum[0]"
+              type="text"
+              placeholder="Enter primary phone"
+            ></Field>
+
+            <ErrorMessage name="phNum[0]" />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="secondary-phn"></label>
+            <Field
+              name="phNum[1]"
+              type="text"
+              placeholder="Enter secondary phone"
+            ></Field>
+
+            <ErrorMessage name="phNum[1]" />
+          </div>
+          <div className="form-control">
+            <label htmlFor="list-of-phnNumbers"></label>
+            <FieldArray name="phoneNumbers">
+              {(fieldArrayProps) => {
+                // console.log(fieldArrayProps);
+                const { push, remove, form } = fieldArrayProps;
+                const { values } = form;
+                const { phoneNumbers } = values;
+                return (
+                  <div>
+                    {phoneNumbers.map((phoneNumber, index) => (
+                      <div key={index}>
+                        <Field name={`phoneNumber[${index}]`} />
+                        <button type="button" onClick={() => remove(index)}>
+                          -
+                        </button>
+                        <button type="button" onClick={() => push("")}>
+                          +
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }}
+            </FieldArray>
           </div>
 
           <div className="form-control">
